@@ -1,13 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import Header from './components/Header'
-import BidList from './components/BidList'
-import BidDetail from './components/BidDetail'
-import NotFound from './components/NotFound'
-import './App.css'
+import { Routes, Route, Link } from 'react-router-dom';
+import Header from './components/Header';
+import BidList from './components/BidList';
+import BidDetail from './components/BidDetail';
+import NotFound from './components/NotFound';
+import './App.css';
 
-// Placeholder component for other modules
-function PODPage() {
+const PODPage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -15,10 +13,10 @@ function PODPage() {
         <p className="module-description">Coming soon...</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-function VendorPage() {
+const VendorPage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -26,10 +24,10 @@ function VendorPage() {
         <p className="module-description">Coming soon...</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-function UserPage() {
+const UserPage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -37,10 +35,10 @@ function UserPage() {
         <p className="module-description">Coming soon...</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-function SettingsPage() {
+const SettingsPage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -48,10 +46,10 @@ function SettingsPage() {
         <p className="module-description">Configure your preferences...</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-function ProfilePage() {
+const ProfilePage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -59,10 +57,10 @@ function ProfilePage() {
         <p className="module-description">Manage your profile...</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-function ContactPage() {
+const ContactPage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -70,10 +68,10 @@ function ContactPage() {
         <p className="module-description">Get in touch with support...</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-function LogoutPage() {
+const LogoutPage = () => {
   return (
     <main className="module-page">
       <div className="module-content">
@@ -81,10 +79,10 @@ function LogoutPage() {
         <p className="module-description">You have been logged out</p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default function App() {
+const App = () => {
   return (
     <>
       <Header />
@@ -119,5 +117,7 @@ export default function App() {
         </main>
       </div>
     </>
-  )
-}
+  );
+};
+
+export default App;
