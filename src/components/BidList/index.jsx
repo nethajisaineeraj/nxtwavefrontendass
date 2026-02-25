@@ -5,42 +5,57 @@ const API = 'https://edtech-exam-api.vercel.app/api/bids'
 
 export default function BidList() {
   const [bids, setBids] = useState([])
-  const [filteredBids, setFilteredBids] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [sortBy, setSortBy] = useState('date')
+  const [sortBy, setSortBy] = useState('')
 
-  useEffect(() => {
-    let cancelled = false
-    async function fetchBids() {
-      try {
-        const res = await fetch(API)
-        if (!res.ok) throw new Error('fetch failed')
-        const data = await res.json()
-        if (!cancelled) {
-          setBids(data.data || [])
-          setFilteredBids(data.data || [])
-        }
-      } catch (err) {
-        if (!cancelled) setError(true)
-      } finally {
-        if (!cancelled) setLoading(false)
+  // Fetch bids with query parameters
+  const fetchBids = async (searchQuery = '', sortQuery = '') => {
+    setLoading(true)
+    try {
+      let url = API
+      const params = new URLSearchParams()
+      
+      if (searchQuery) {
+        params.append('createdBy', searchQuery)
       }
+      
+      if (sortQuery) {
+        params.append('sortBy', sortQuery)
+      }
+      
+      if (params.toString()) {
+        url += '?' + params.toString()
+      }
+      
+      const res = await fetch(url)
+      if (!res.ok) throw new Error('fetch failed')
+      const data = await res.json()
+      setBids(data.data || [])
+      setError(false)
+    } catch (err) {
+      setError(true)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  // Initial load
+  useEffect(() => {
     fetchBids()
-    return () => {
-      cancelled = true
-    }
   }, [])
 
   // Handle search button click
   const handleSearch = () => {
-    const filtered = bids.filter(bid => 
-      bid.createdBy?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      bid.bidNumber?.includes(searchTerm)
-    )
-    setFilteredBids(filtered)
+    fetchBids(searchTerm, sortBy)
+  }
+
+  // Handle Enter key in search input
+  const handleSearchKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      fetchBids(searchTerm, sortBy)
+    }
   }
 
   // Handle sort change
@@ -48,29 +63,18 @@ export default function BidList() {
     const sortValue = e.target.value
     setSortBy(sortValue)
     
-    let sorted = [...filteredBids]
-    
-    switch(sortValue) {
-      case 'date':
-        sorted.sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
-        break
-      case 'name':
-        sorted.sort((a, b) => a.createdBy.localeCompare(b.createdBy))
-        break
-      case 'responses':
-        sorted.sort((a, b) => (b.response || 0) - (a.response || 0))
-        break
-      default:
-        break
+    if (searchTerm) {
+      fetchBids(searchTerm, sortValue)
+    } else {
+      fetchBids('', sortValue)
     }
-    
-    setFilteredBids(sorted)
   }
 
   // Handle clear search
   const handleClearSearch = () => {
     setSearchTerm('')
-    setFilteredBids(bids)
+    setSortBy('')
+    fetchBids('', '')
   }
 
   if (loading)
@@ -102,15 +106,16 @@ export default function BidList() {
             className="search-input"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleSearchKeyPress}
           />
           <button className="search-btn" onClick={handleSearch}>Search</button>
           {searchTerm && (
             <button className="clear-btn" onClick={handleClearSearch}>Clear</button>
           )}
           <select className="sort-select" value={sortBy} onChange={handleSort}>
-            <option value="date">Sort by Date</option>
-            <option value="name">Sort by Name</option>
-            <option value="responses">Sort by Responses</option>
+            <option value="">Sort by Date</option>
+            <option value="asc">Oldest First</option>
+            <option value="desc">Newest First</option>
           </select>
         </div>
       </div>
@@ -130,7 +135,7 @@ export default function BidList() {
             </tr>
           </thead>
           <tbody>
-            {filteredBids.map((bid, index) => (
+            {bids.map((bid, index) => (
               <tr 
                 key={bid.id}
                 onClick={() => window.location.href = `/bid/${bid.id}`}

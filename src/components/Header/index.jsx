@@ -7,9 +7,9 @@ export default function Header() {
         <img
           className="header-logo"
           src="https://nxtwave-website-media-files.s3.ap-south-1.amazonaws.com/placement-happenings/webcoding-gif/logo-bids-logistic.avif"
-          alt="logo"
+          alt="logo-image"
         />
-        {/* optionally add controls on right in the future */}
+        <span className="header-brand">LOGISTIC</span>
       </div>
     </header>
   )

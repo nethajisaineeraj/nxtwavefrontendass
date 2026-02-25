@@ -5,19 +5,11 @@ export default function NotFound() {
     <main className="notfound-page">
       <div className="notfound-wrap">
         <div className="nf-img-container">
-          <svg 
-            viewBox="0 0 500 400" 
+          <img 
+            src="https://nxtwave-website-media-files.s3.ap-south-1.amazonaws.com/placement-happenings/webcoding-gif/404-illustration.png" 
+            alt="not-found"
             className="nf-illustration"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <text x="250" y="200" fontSize="120" fontWeight="bold" textAnchor="middle" fill="#ef4444">
-              404
-            </text>
-            <text x="250" y="260" fontSize="24" textAnchor="middle" fill="#0f172a" fontWeight="600">
-              Page Not Found
-            </text>
-          </svg>
+          />
         </div>
         <h1 className="nf-heading">Page Not Found</h1>
         <p className="nf-description">

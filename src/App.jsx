@@ -1,4 +1,5 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Header from './components/Header'
 import BidList from './components/BidList'
 import BidDetail from './components/BidDetail'
@@ -6,102 +7,113 @@ import NotFound from './components/NotFound'
 import './App.css'
 
 // Placeholder component for other modules
-function ModulePage({ title, description }) {
+function PODPage() {
   return (
     <main className="module-page">
       <div className="module-content">
-        <h1 className="module-title">{title}</h1>
-        <p className="module-description">{description}</p>
+        <h1>POD Module</h1>
+        <p className="module-description">Coming soon...</p>
+      </div>
+    </main>
+  )
+}
+
+function VendorPage() {
+  return (
+    <main className="module-page">
+      <div className="module-content">
+        <h1>Vendor Module</h1>
+        <p className="module-description">Coming soon...</p>
+      </div>
+    </main>
+  )
+}
+
+function UserPage() {
+  return (
+    <main className="module-page">
+      <div className="module-content">
+        <h1>User Module</h1>
+        <p className="module-description">Coming soon...</p>
+      </div>
+    </main>
+  )
+}
+
+function SettingsPage() {
+  return (
+    <main className="module-page">
+      <div className="module-content">
+        <h1>Settings</h1>
+        <p className="module-description">Configure your preferences...</p>
+      </div>
+    </main>
+  )
+}
+
+function ProfilePage() {
+  return (
+    <main className="module-page">
+      <div className="module-content">
+        <h1>Profile</h1>
+        <p className="module-description">Manage your profile...</p>
+      </div>
+    </main>
+  )
+}
+
+function ContactPage() {
+  return (
+    <main className="module-page">
+      <div className="module-content">
+        <h1>Contact Us</h1>
+        <p className="module-description">Get in touch with support...</p>
+      </div>
+    </main>
+  )
+}
+
+function LogoutPage() {
+  return (
+    <main className="module-page">
+      <div className="module-content">
+        <h1>Logout</h1>
+        <p className="module-description">You have been logged out</p>
       </div>
     </main>
   )
 }
 
 export default function App() {
-  const navigate = useNavigate()
-
-  const handleNavClick = (path, e) => {
-    e.preventDefault()
-    navigate(path)
-  }
-
   return (
     <>
       <Header />
       <div className="app-container">
         <aside className="sidebar">
           <nav className="sidebar-nav">
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/', e)}
-            >
-              Bid
-            </a>
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/pod', e)}
-            >
-              POD
-            </a>
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/vendor', e)}
-            >
-              Vendor
-            </a>
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/user', e)}
-            >
-              User
-            </a>
+            <Link to="/" className="nav-item">Bid</Link>
+            <Link to="/pod" className="nav-item">POD</Link>
+            <Link to="/vendor" className="nav-item">Vendor</Link>
+            <Link to="/user" className="nav-item">User</Link>
             <div className="nav-divider"></div>
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/settings', e)}
-            >
-              Settings
-            </a>
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/profile', e)}
-            >
-              Profile
-            </a>
-            <a 
-              href="#" 
-              className="nav-item" 
-              onClick={(e) => handleNavClick('/contact', e)}
-            >
-              Contact Us
-            </a>
+            <Link to="/settings" className="nav-item">Settings</Link>
+            <Link to="/profile" className="nav-item">Profile</Link>
+            <Link to="/contact" className="nav-item">Contact Us</Link>
             <div className="nav-divider"></div>
-            <a 
-              href="#" 
-              className="nav-item nav-logout" 
-              onClick={(e) => handleNavClick('/logout', e)}
-            >
-              Logout
-            </a>
+            <Link to="/logout" className="nav-item nav-logout">Logout</Link>
           </nav>
         </aside>
         <main className="main-content">
           <Routes>
             <Route path="/" element={<BidList />} />
             <Route path="/bid/:id" element={<BidDetail />} />
-            <Route path="/pod" element={<ModulePage title="POD Module" description="Coming soon..." />} />
-            <Route path="/vendor" element={<ModulePage title="Vendor Module" description="Coming soon..." />} />
-            <Route path="/user" element={<ModulePage title="User Module" description="Coming soon..." />} />
-            <Route path="/settings" element={<ModulePage title="Settings" description="Configure your preferences..." />} />
-            <Route path="/profile" element={<ModulePage title="Profile" description="Manage your profile..." />} />
-            <Route path="/contact" element={<ModulePage title="Contact Us" description="Get in touch with support..." />} />
-            <Route path="/logout" element={<ModulePage title="Logout" description="You have been logged out" />} />
+            <Route path="/pod" element={<PODPage />} />
+            <Route path="/vendor" element={<VendorPage />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/logout" element={<LogoutPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

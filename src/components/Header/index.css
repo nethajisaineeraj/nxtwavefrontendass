@@ -18,13 +18,20 @@
   padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
 }
 
 .header-logo {
   height: 40px;
   width: auto;
   object-fit: contain;
+}
+
+.header-brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.5px;
 }
 
 /* Optional right-side controls can go here */

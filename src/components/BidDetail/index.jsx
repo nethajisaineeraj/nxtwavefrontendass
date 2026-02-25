@@ -15,7 +15,8 @@ export default function BidDetail() {
     let cancelled = false
     async function fetchBid() {
       try {
-        const res = await fetch(API)
+        const url = API + '?id=' + id
+        const res = await fetch(url)
         if (!res.ok) throw new Error('fetch failed')
         const data = await res.json()
         const foundBid = data.data?.find(b => b.id == id)
