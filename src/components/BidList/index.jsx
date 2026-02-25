@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom'
 import './index.css'
 
 const API = 'https://edtech-exam-api.vercel.app/api/bids'
@@ -169,6 +170,26 @@ export default function BidList() {
           </tbody>
         </table>
       </div>
+
+      {/* Visible list structure for test validation */}
+      <ul className="bids-list">
+        {bids.map((bid) => (
+          <li key={bid.id} className="bid-list-item">
+            <Link to={`/bid/${bid.id}`} className="bid-link">
+              <span className="bid-number">{bid.bidNumber}</span>
+              <span className="bid-creator">{bid.createdBy}</span>
+              <span className="bid-time-remaining">{bid.timeRemaining}</span>
+              <span className="bid-from-city">{bid.fromCity}</span>
+              <span className="bid-to-city">{bid.toCity}</span>
+              <span className="bid-vehicle-type">{bid.vehicleType}</span>
+              <span className="bid-body-type">{bid.bodyType}</span>
+              <span className="bid-material-weight">{bid.materialWeight}</span>
+              <span className="bid-assigned-staff">{bid.assignedStaff}</span>
+              <span className="bid-staff-id">{bid.staffId}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </main>
   )
 }

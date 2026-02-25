@@ -19,10 +19,12 @@ export default function BidDetail() {
         const res = await fetch(url)
         if (!res.ok) throw new Error('fetch failed')
         const data = await res.json()
-        const foundBid = data.data?.find(b => b.id == id)
+        
         if (!cancelled) {
-          if (foundBid) {
-            setBid(foundBid)
+          // API returns a single object when querying by id
+          const bidData = data.data
+          if (bidData && bidData.id) {
+            setBid(bidData)
           } else {
             setError(true)
           }
@@ -72,25 +74,22 @@ export default function BidDetail() {
             <label className="detail-label">CREATED BY</label>
             <div className="detail-value">{bid.createdBy}</div>
           </div>
-
           <div className="detail-field">
             <label className="detail-label">START DATE</label>
-            <div className="detail-value">{bid.startDate || '2024-02-14'}</div>
+            <div className="detail-value">{bid.startDate || 'N/A'}</div>
           </div>
           <div className="detail-field">
             <label className="detail-label">START TIME</label>
-            <div className="detail-value">{bid.startTime || '18:30'}</div>
+            <div className="detail-value">{bid.startTime || 'N/A'}</div>
           </div>
-
           <div className="detail-field">
             <label className="detail-label">TIME REMAINING</label>
-            <div className="detail-value">{bid.timeRemaining}</div>
+            <div className="detail-value">{bid.timeRemaining || 'N/A'}</div>
           </div>
           <div className="detail-field">
             <label className="detail-label">RESPONSES</label>
-            <div className="detail-value">{bid.response || 0}</div>
+            <div className="detail-value">{bid.responses || '0'}</div>
           </div>
-
           <div className="detail-field">
             <label className="detail-label">FROM CITY</label>
             <div className="detail-value">{bid.fromCity}</div>
@@ -99,7 +98,6 @@ export default function BidDetail() {
             <label className="detail-label">TO CITY</label>
             <div className="detail-value">{bid.toCity}</div>
           </div>
-
           <div className="detail-field">
             <label className="detail-label">VEHICLE TYPE</label>
             <div className="detail-value">{bid.vehicleType}</div>
@@ -108,19 +106,17 @@ export default function BidDetail() {
             <label className="detail-label">BODY TYPE</label>
             <div className="detail-value">{bid.bodyType}</div>
           </div>
-
           <div className="detail-field">
-            <label className="detail-label">NO. OF VEHICLES</label>
-            <div className="detail-value">{bid.numberOfVehicles || 1}</div>
+            <label className="detail-label">NUMBER OF VEHICLES</label>
+            <div className="detail-value">{bid.numberOfVehicles || 'N/A'}</div>
           </div>
           <div className="detail-field">
-            <label className="detail-label">MATERIAL WEIGHT</label>
-            <div className="detail-value">{bid.materialWeight} kg</div>
+            <label className="detail-label">MATERIAL WEIGHT (KG)</label>
+            <div className="detail-value">{bid.materialWeight}</div>
           </div>
-
           <div className="detail-field">
             <label className="detail-label">ASSIGNED STAFF</label>
-            <div className="detail-value">{bid.assignedStaff || bid.createdBy}</div>
+            <div className="detail-value">{bid.assignedStaff || 'N/A'}</div>
           </div>
           <div className="detail-field">
             <label className="detail-label">STAFF ID</label>
