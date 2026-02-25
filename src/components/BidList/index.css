@@ -1,0 +1,31 @@
+.list-wrap{
+  max-width:1280px;
+  margin: 20px auto 80px;
+  padding: 20px;
+  display: grid;
+  gap: 22px;
+  /* default 1-col for very small */
+  grid-template-columns: 1fr;
+}
+
+/* medium screens (>=768) -> 2 columns (matches the responsiveness) */
+@media (min-width: 768px){
+  .list-wrap { grid-template-columns: repeat(2, 1fr); padding: 24px; gap: 26px; }
+}
+
+/* large screens (>=1200) -> 3 columns (looks like video) */
+@media (min-width: 1200px){
+  .list-wrap { grid-template-columns: repeat(3, 1fr); padding: 32px; gap: 28px; }
+}
+
+/* centered loading / error style */
+.status-wrap {
+  padding-top: 120px;
+  display:flex;
+  justify-content:center;
+}
+.status{
+  font-weight: 600;
+  font-size: 20px;
+  color: #0f172a;
+}

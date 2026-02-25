@@ -1,0 +1,72 @@
+.bid-card{
+  background: var(--card);
+  padding: 20px 22px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height: 170px;
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .14s ease;
+  position: relative;
+}
+
+.bid-card:hover {
+  transform: translateY(-6px);
+}
+
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap: 12px;
+}
+
+.bid-number{
+  font-weight:700;
+  font-size: 18px;
+}
+
+.status-badge{
+  background: var(--accent);
+  color: #fff;
+  padding:6px 12px;
+  font-size:12px;
+  border-radius:8px;
+  font-weight:700;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* different statuses keep same color for now; you can add colors */
+.status-badge.responded { background:#0ea5a0; } /* teal if needed */
+.status-badge.unresponded { background:#f59e0b; } /* amber if needed */
+.status-badge.live { background: var(--accent); }
+
+.route{
+  font-weight:700;
+  font-size: 15px;
+  color: #0f172a;
+  margin-top:4px;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:8px 18px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.muted { color: var(--muted); }
+.muted-strong { color: #0f172a; font-weight:600; }
+
+.card-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color: var(--muted);
+  margin-top: auto;
+  font-size: 14px;
+}

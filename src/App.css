@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans';
+}
+
+/* Write Your code Here*/
+/* small helper: keeps content from being behind header */
+main,
+.page {
+  padding-top: 84px; /* header height */
+}
+.center-text {
+  text-align: center;
+}
+.small-muted {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
