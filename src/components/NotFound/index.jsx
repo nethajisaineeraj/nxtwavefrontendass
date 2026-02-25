@@ -1,14 +1,29 @@
 import './index.css'
+
 export default function NotFound() {
   return (
-    <main className="page">
+    <main className="notfound-page">
       <div className="notfound-wrap">
-        <img
-          className="nf-img"
-          src="https://nxtwave-assessments-backend-nxtwave-media-static.s3-ap-south-1.amazonaws.com/topin_beta/media/content_loading/uploads/a34ebd9a-63e7-4590-841e-2c8bfde46d7b_not%20found%20image.webp"
-          alt="not found"
-        />
-        <h2>Page Not Found</h2>
+        <div className="nf-img-container">
+          <svg 
+            viewBox="0 0 500 400" 
+            className="nf-illustration"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <text x="250" y="200" fontSize="120" fontWeight="bold" textAnchor="middle" fill="#ef4444">
+              404
+            </text>
+            <text x="250" y="260" fontSize="24" textAnchor="middle" fill="#0f172a" fontWeight="600">
+              Page Not Found
+            </text>
+          </svg>
+        </div>
+        <h1 className="nf-heading">Page Not Found</h1>
+        <p className="nf-description">
+          The page you are looking for does not exist or has been moved.
+        </p>
+        <a href="/" className="nf-link">Go back to Bids</a>
       </div>
     </main>
   )

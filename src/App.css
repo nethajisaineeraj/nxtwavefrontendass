@@ -7,15 +7,103 @@
   font-family: 'Open Sans';
 }
 
-/* Write Your code Here*/
-/* small helper: keeps content from being behind header */
-main,
-.page {
-  padding-top: 84px; /* header height */
+/* App container with sidebar */
+.app-container {
+  display: flex;
+  margin-top: 72px; /* header height */
+  min-height: calc(100vh - 72px);
 }
+
+/* Sidebar styling */
+.sidebar {
+  width: 194px;
+  background: #f9fafb;
+  border-right: 1px solid #e5e7eb;
+  padding: 20px 0;
+  position: fixed;
+  left: 0;
+  top: 72px;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  padding: 12px 20px;
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.nav-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 8px 0;
+}
+
+.nav-logout {
+  color: #ef4444;
+}
+
+.nav-logout:hover {
+  color: #dc2626;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  margin-left: 194px;
+  padding: 0;
+}
+
+main.page {
+  padding-top: 20px;
+}
+
+/* Module page styling */
+.module-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 72px);
+  padding: 20px;
+  background: #f9fafb;
+}
+
+.module-content {
+  text-align: center;
+  padding: 40px;
+}
+
+.module-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.module-description {
+  font-size: 16px;
+  color: #9ca3af;
+  margin: 0;
+}
+
 .center-text {
   text-align: center;
 }
+
 .small-muted {
   color: #6b7280;
   font-size: 0.95rem;

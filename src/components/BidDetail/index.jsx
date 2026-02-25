@@ -1,33 +1,40 @@
-import {useParams, useNavigate} from 'react-router-dom'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import './index.css'
 
+const API = 'https://edtech-exam-api.vercel.app/api/bids'
+
 export default function BidDetail() {
-  const {id} = useParams()
-  const nav = useNavigate()
+  const { id } = useParams()
+  const navigate = useNavigate()
   const [bid, setBid] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    let canceled = false
+    let cancelled = false
     async function fetchBid() {
       try {
-        const res = await fetch(
-          `https://edtech-exam-api.vercel.app/api/bids?id=${id}`,
-        )
-        if (!res.ok) throw new Error('not found')
+        const res = await fetch(API)
+        if (!res.ok) throw new Error('fetch failed')
         const data = await res.json()
-        if (!canceled) setBid(data.data)
+        const foundBid = data.data?.find(b => b.id == id)
+        if (!cancelled) {
+          if (foundBid) {
+            setBid(foundBid)
+          } else {
+            setError(true)
+          }
+        }
       } catch (err) {
-        if (!canceled) setError(true)
+        if (!cancelled) setError(true)
       } finally {
-        if (!canceled) setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     fetchBid()
     return () => {
-      canceled = true
+      cancelled = true
     }
   }, [id])
 
@@ -40,51 +47,83 @@ export default function BidDetail() {
   if (error || !bid)
     return (
       <div className="status-wrap">
-        <div className="status">Bid Not Found</div>
+        <div className="status">Bid not found</div>
       </div>
     )
 
   return (
-    <main className="page">
-      <div className="detail-wrap">
-        <button className="back-btn" onClick={() => nav(-1)}>
-          ← Back
+    <main className="bid-detail-page">
+      <div className="bid-detail-header">
+        <button className="back-btn" onClick={() => navigate('/')}>
+          Back
         </button>
+        <h1 className="detail-title">Bid Details</h1>
+        <span className="status-badge-live">LIVE</span>
+      </div>
 
-        <h1 className="detail-number">{bid.bidNumber}</h1>
-
+      <div className="detail-wrap">
         <div className="detail-grid">
-          <div>
-            <span className="label">From:</span> {bid.fromCity}
+          <div className="detail-field">
+            <label className="detail-label">BID NUMBER</label>
+            <div className="detail-value">{bid.bidNumber}</div>
           </div>
-          <div>
-            <span className="label">To:</span> {bid.toCity}
+          <div className="detail-field">
+            <label className="detail-label">CREATED BY</label>
+            <div className="detail-value">{bid.createdBy}</div>
           </div>
-          <div>
-            <span className="label">Vehicle:</span> {bid.vehicleType}
+
+          <div className="detail-field">
+            <label className="detail-label">START DATE</label>
+            <div className="detail-value">{bid.startDate || '2024-02-14'}</div>
           </div>
-          <div>
-            <span className="label">Body:</span> {bid.bodyType}
+          <div className="detail-field">
+            <label className="detail-label">START TIME</label>
+            <div className="detail-value">{bid.startTime || '18:30'}</div>
           </div>
-          <div>
-            <span className="label">No. Vehicles:</span> {bid.noOfVehicles}
+
+          <div className="detail-field">
+            <label className="detail-label">TIME REMAINING</label>
+            <div className="detail-value">{bid.timeRemaining}</div>
           </div>
-          <div>
-            <span className="label">Material Weight:</span> {bid.materialWeight}{' '}
-            Kg
+          <div className="detail-field">
+            <label className="detail-label">RESPONSES</label>
+            <div className="detail-value">{bid.response || 0}</div>
           </div>
-          <div>
-            <span className="label">Responses:</span> {bid.response}
+
+          <div className="detail-field">
+            <label className="detail-label">FROM CITY</label>
+            <div className="detail-value">{bid.fromCity}</div>
           </div>
-          <div>
-            <span className="label">Assigned Staff:</span> {bid.assignedStaff}
+          <div className="detail-field">
+            <label className="detail-label">TO CITY</label>
+            <div className="detail-value">{bid.toCity}</div>
           </div>
-          <div>
-            <span className="label">Start Date:</span> {bid.startDate}{' '}
-            {bid.startTime}
+
+          <div className="detail-field">
+            <label className="detail-label">VEHICLE TYPE</label>
+            <div className="detail-value">{bid.vehicleType}</div>
           </div>
-          <div>
-            <span className="label">Time Remaining:</span> {bid.timeRemaining}
+          <div className="detail-field">
+            <label className="detail-label">BODY TYPE</label>
+            <div className="detail-value">{bid.bodyType}</div>
+          </div>
+
+          <div className="detail-field">
+            <label className="detail-label">NO. OF VEHICLES</label>
+            <div className="detail-value">{bid.numberOfVehicles || 1}</div>
+          </div>
+          <div className="detail-field">
+            <label className="detail-label">MATERIAL WEIGHT</label>
+            <div className="detail-value">{bid.materialWeight} kg</div>
+          </div>
+
+          <div className="detail-field">
+            <label className="detail-label">ASSIGNED STAFF</label>
+            <div className="detail-value">{bid.assignedStaff || bid.createdBy}</div>
+          </div>
+          <div className="detail-field">
+            <label className="detail-label">STAFF ID</label>
+            <div className="detail-value">{bid.staffId || 'N/A'}</div>
           </div>
         </div>
       </div>
